@@ -68,10 +68,27 @@ public class HelloController {
     @FXML
     private ImageView xIcon;
     @FXML
+    private Button startButton;
+    @FXML
     private List<ImageView> images = new ArrayList<>();
     private int[] oCountColumn = new int[3];
     private int[] oCountRow = new int[3];
     private int[] oCountDiagonal = new int[2];
+
+    @FXML
+    void startGame(){
+        aiTurn(0,0,0);
+        square1.setVisible(true);
+        square2.setVisible(true);
+        square3.setVisible(true);
+        square4.setVisible(true);
+        square5.setVisible(true);
+        square6.setVisible(true);
+        square7.setVisible(true);
+        square8.setVisible(true);
+        square9.setVisible(true);
+        startButton.setVisible(false);
+    }
     @FXML
     void switchToImage(ActionEvent event) {
         if (event.getSource() == square1) {
@@ -234,6 +251,7 @@ public class HelloController {
         changeIconsButton.setVisible(false);
         changeIconsButton.setDisable(true);
         resetGame();
+
     }
     @FXML
     void checkTie(){
@@ -300,8 +318,9 @@ public class HelloController {
         }
         oCountDiagonal[0] = 0;
         oCountDiagonal[1] = 0;
+        aiTurn(0,0,0);
     }
-    void aiTurn(int column, int row, int diagonal){
+    public void aiTurn(int column, int row, int diagonal){
         ImageView imageView = new ImageView(xIcon.getImage());
         imageView.setOpacity(1);
 
@@ -731,6 +750,16 @@ public class HelloController {
                 //square 8
             }
         }
+        checkColumnWin(0);
+        checkColumnWin(1);
+        checkColumnWin(2);
+        checkRowWin(0);
+        checkRowWin(1);
+        checkRowWin(2);
+        checkDiagonalWin(2);
+        checkDiagonalWin(1);
+        checkDiagonalWin(0);
+        checkTie();
     }
     void checkRowWin(int row){
         if (row==0){
